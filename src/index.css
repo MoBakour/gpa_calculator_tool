@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"] {
+        -webkit-appearance: none;
+        margin: 0;
+        -moz-appearance: textfield !important;
+    }
+}
+
+* {
+    font-family: "Quicksand", sans-serif;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    @apply bg-slate-800 w-2;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-violet-700 rounded;
+}
+
+/* custom grading systems */
+.system {
+    @apply p-2 border-2 border-transparent rounded-lg transition opacity-60;
+}
+
+.system:hover {
+    @apply cursor-pointer;
+}
+
+.system.selected {
+    @apply border-black opacity-100;
+}
+
+.system.selected:hover {
+    @apply cursor-auto;
+}
+
+.system.custom {
+    @apply flex-1;
+}
+
+.system.custom::-webkit-scrollbar {
+    @apply bg-transparent;
+}
+
+@media (max-width: 640px) {
+    .system-customizer {
+        font-size: 80%;
+    }
+}
+
+/* media queries */
+@media (max-width: 450px) {
+    .header h1 {
+        @apply text-2xl;
+    }
+
+    .header nav {
+        @apply text-sm;
+    }
+}
+
+@media (max-width: 420px) {
+    .semesters {
+        width: 320px;
+        font-size: 80%;
+    }
+}
