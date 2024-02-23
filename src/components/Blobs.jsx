@@ -7,7 +7,7 @@ export const Blob = ({
     right = "auto",
 }) => (
     <div
-        className="absolute blur-[100px] opacity-15 rounded-full pointer-events-none"
+        className="absolute blur-[75px] opacity-15 rounded-full pointer-events-none"
         style={{
             width: `${size}px`,
             height: `${size}px`,
@@ -23,6 +23,6 @@ export const Blob = ({
 export const Blobs = () => (
     <div className="fixed w-screen h-screen overflow-hidden -z-1 pointer-events-none">
         <Blob size={500} color="purple" right="-200px"></Blob>
-        <Blob size={500} color="cyan" top="200px" left="-400px" />
+        <Blob size={500} color="cyan" top="200px" left="-300px" />
     </div>
 );
