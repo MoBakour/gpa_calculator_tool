@@ -25,7 +25,9 @@ export const calculateGpa = (content, system) => {
 
         // divide total grades by total credits to get semester GPA
         const gpa = totalGrades / totalCredits;
-        semesters.push(gpa);
+        if (!isNaN(gpa)) {
+            semesters.push(gpa);
+        }
     }
 
     const sum = semesters.reduce((prev, current) => prev + current, 0);
@@ -39,23 +41,28 @@ export const calculateGpa = (content, system) => {
 
 /**
  * Takes GPA and returns the appropriate gradient color range to visualize the GPA
- * @param {number} gpa - Numerical representation of GPA grade between 0 to 4
+ * @param {number} gpa - Numerical representation of GPA grade
+ * @param {object} gradingSystem - Grading system object
  * @returns {string}
  */
-export const getColor = (gpa) => {
+export const getColor = (gpa, gradingSystem) => {
     if (isNaN(gpa)) return "";
 
+    // calculate highest numerical grade
+    const highest = Math.max(...gradingSystem.map((sys) => sys.grade));
+    const difference = highest / 8;
+
     let color = "";
-    if (gpa < 2) {
-        color = "from-red-600 to-orange-600";
-    } else if (gpa < 2.5) {
-        color = "from-orange-600 to-yellow-600";
-    } else if (gpa < 3) {
-        color = "from-yellow-600 to-lime-600";
-    } else if (gpa < 3.5) {
-        color = "from-lime-600 to-sky-600";
-    } else {
+    if (gpa >= highest - difference) {
         color = "from-sky-600 to-violet-600";
+    } else if (gpa >= highest - difference * 2) {
+        color = "from-lime-600 to-sky-600";
+    } else if (gpa >= highest - difference * 3) {
+        color = "from-yellow-600 to-lime-600";
+    } else if (gpa >= highest - difference * 4) {
+        color = "from-orange-600 to-yellow-600";
+    } else {
+        color = "from-red-600 to-orange-600";
     }
 
     return color;

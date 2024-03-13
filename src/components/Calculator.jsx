@@ -147,7 +147,8 @@ const Calculator = () => {
                 </Button>
                 <div
                     className={`absolute bottom-4 left-0 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${getColor(
-                        Number(gpa.semesters[semesterIndex])
+                        Number(gpa.semesters[semesterIndex]),
+                        letterGrades[system]
                     )}`}
                 >
                     {" "}
@@ -180,7 +181,8 @@ const Calculator = () => {
                     <p>Your cumulative GPA is</p>
                     <p
                         className={`text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${getColor(
-                            Number(gpa.CGPA)
+                            Number(gpa.CGPA),
+                            letterGrades[system]
                         )}`}
                     >
                         {Number(gpa.CGPA).toFixed(2)}
