@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 // default grading systems
 const defaultGradingSystems = {
-    turkey: [
+    myuni: [
         { letter: "AA", grade: 4 },
         { letter: "BA", grade: 3.5 },
         { letter: "BB", grade: 3 },
@@ -52,7 +52,7 @@ const useDataStore = create((set) => {
     const storedSystem = JSON.parse(
         urlParams.get(SYSTEM_KEY) ||
             localStorage.getItem(SYSTEM_KEY) ||
-            '"turkey"'
+            '"myuni"'
     );
 
     const storedCustomGrades = JSON.parse(
