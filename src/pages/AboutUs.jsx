@@ -66,6 +66,7 @@ const AboutUs = () => {
                         <li>Real-time GPA calculation</li>
                         <li>Preserved data and results</li>
                         <li>Grading system customization</li>
+                        <li>Toggle semesters for calculation</li>
                         <li>Sharing results via links</li>
                     </ul>
                 </section>

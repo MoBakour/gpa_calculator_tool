@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import IconDelete from "../icons/IconDelete";
+import IconEye from "../icons/IconEye";
+import IconEyeInvisible from "../icons/IconEyeInvisible";
 import ShareButton from "./ShareButton";
 import Button from "./Button";
 import { calculateGpa, getColor } from "../utils/calculate";
@@ -22,7 +24,8 @@ const Calculator = () => {
     // onChange handlers
     const handleChangeCourse = (e, semesterIndex, courseIndex, property) => {
         const newContent = JSON.parse(JSON.stringify(content));
-        newContent[semesterIndex][courseIndex][property] = e.target.value;
+        newContent[semesterIndex].content[courseIndex][property] =
+            e.target.value;
         setContent(newContent);
 
         // make sure to override older values in localStorage if user comes from a share link
@@ -33,25 +36,35 @@ const Calculator = () => {
     // onClick handlers
     const addCourse = (e, semesterIndex) => {
         const newContent = JSON.parse(JSON.stringify(content));
-        newContent[semesterIndex].push({ name: "", credits: "", letter: "" });
+        newContent[semesterIndex].content.push({
+            name: "",
+            credits: "",
+            letter: "",
+        });
         setContent(newContent);
     };
 
     const removeCourse = (e, semesterIndex, courseIndex) => {
         const newContent = JSON.parse(JSON.stringify(content));
-        newContent[semesterIndex].splice(courseIndex, 1);
+        newContent[semesterIndex].content.splice(courseIndex, 1);
         setContent(newContent);
     };
 
     const addSemester = (e) => {
         const newContent = JSON.parse(JSON.stringify(content));
-        newContent.push([]);
+        newContent.push({ active: true, content: [] });
         setContent(newContent);
     };
 
     const removeSemester = (e, semesterIndex) => {
         const newContent = JSON.parse(JSON.stringify(content));
         newContent.splice(semesterIndex, 1);
+        setContent(newContent);
+    };
+
+    const toggleSemester = (e, semesterIndex) => {
+        const newContent = JSON.parse(JSON.stringify(content));
+        newContent[semesterIndex].active = !newContent[semesterIndex].active;
         setContent(newContent);
     };
 
@@ -68,22 +81,38 @@ const Calculator = () => {
     }, [content]);
 
     const elements = content.map((courses, semesterIndex) => (
-        <div className="semester p-3" key={semesterIndex}>
+        <div
+            className={`semester p-3 transition ${
+                courses.active ? "" : "opacity-50"
+            }`}
+            key={semesterIndex}
+        >
             <header className="flex justify-between">
                 <h2 className="text-lg sm:text-xl font-bold">
                     Semester {semesterIndex + 1}
                 </h2>
-                <button
-                    className="transition hover:scale-90"
-                    title={`Delete semester ${semesterIndex + 1}`}
-                    onClick={(e) => removeSemester(e, semesterIndex)}
-                >
-                    <IconDelete />
-                </button>
+                <div className="flex justify-center items-center gap-2">
+                    <button
+                        className="transition hover:scale-90"
+                        title={`${
+                            courses.active ? "Disable" : "Activate"
+                        } semester ${semesterIndex + 1}`}
+                        onClick={(e) => toggleSemester(e, semesterIndex)}
+                    >
+                        {courses.active ? <IconEye /> : <IconEyeInvisible />}
+                    </button>
+                    <button
+                        className="transition hover:scale-90"
+                        title={`Delete semester ${semesterIndex + 1}`}
+                        onClick={(e) => removeSemester(e, semesterIndex)}
+                    >
+                        <IconDelete />
+                    </button>
+                </div>
             </header>
             <div className="content p-1 sm:p-3 flex flex-col items-center relative">
                 <div className="courses flex flex-col gap-2 sm:gap-3">
-                    {courses.map((course, courseIndex) => (
+                    {courses.content.map((course, courseIndex) => (
                         <div
                             className="course flex gap-3 sm:gap-4"
                             key={courseIndex}

@@ -14,7 +14,7 @@ export const calculateGpa = (content, system) => {
         let grades = 0;
         let credits = 0;
 
-        for (const course of semester) {
+        for (const course of semester.content) {
             // if no course credits, consider 0
             course.credits = parseFloat(course.credits || "0");
 
@@ -26,8 +26,10 @@ export const calculateGpa = (content, system) => {
         }
 
         // add to total
-        totalGrades += grades;
-        totalCredits += credits;
+        if (semester.active) {
+            totalGrades += grades;
+            totalCredits += credits;
+        }
 
         // divide total grades by total credits to get semester GPA
         const gpa = grades / credits;
