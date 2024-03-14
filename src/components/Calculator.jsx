@@ -121,6 +121,7 @@ const Calculator = () => {
                                 type="text"
                                 placeholder="Course name"
                                 value={course.name}
+                                title={course.name}
                                 className="bg-transparent"
                                 onChange={(e) =>
                                     handleChangeCourse(
