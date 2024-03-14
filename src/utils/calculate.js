@@ -7,31 +7,37 @@
 export const calculateGpa = (content, system) => {
     // will contain GPA values of each semester
     const semesters = [];
+    let totalGrades = 0;
+    let totalCredits = 0;
 
     for (const semester of content) {
-        let totalGrades = 0;
-        let totalCredits = 0;
+        let grades = 0;
+        let credits = 0;
 
         for (const course of semester) {
             // if no course credits, consider 0
             course.credits = parseFloat(course.credits || "0");
 
             // to scale course grade, multiply by course credits
-            totalGrades +=
+            grades +=
                 system.find((grade) => grade.letter === course.letter)?.grade *
                     course.credits || 0;
-            totalCredits += course.credits;
+            credits += course.credits;
         }
 
+        // add to total
+        totalGrades += grades;
+        totalCredits += credits;
+
         // divide total grades by total credits to get semester GPA
-        const gpa = totalGrades / totalCredits;
+        const gpa = grades / credits;
         if (!isNaN(gpa)) {
             semesters.push(gpa);
         }
     }
 
-    const sum = semesters.reduce((prev, current) => prev + current, 0);
-    const CGPA = sum / semesters.length;
+    // calculate CGPA using total values
+    const CGPA = totalGrades / totalCredits;
 
     return {
         semesters,

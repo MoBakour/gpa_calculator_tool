@@ -6,8 +6,15 @@ import { calculateGpa, getColor } from "../utils/calculate";
 import useDataStore from "../store/data.store";
 
 const Calculator = () => {
-    const { content, setContent, letterGrades, setSettingsActive, system } =
-        useDataStore();
+    const {
+        setSettingsActive,
+        content,
+        setContent,
+        letterGrades,
+        setCustomGrades,
+        system,
+        setSystem,
+    } = useDataStore();
 
     // states
     const [gpa, setGpa] = useState({ semesters: [], CGPA: 0 });
@@ -17,6 +24,10 @@ const Calculator = () => {
         const newContent = JSON.parse(JSON.stringify(content));
         newContent[semesterIndex][courseIndex][property] = e.target.value;
         setContent(newContent);
+
+        // make sure to override older values in localStorage if user comes from a share link
+        setSystem(system);
+        setCustomGrades(letterGrades.custom);
     };
 
     // onClick handlers
