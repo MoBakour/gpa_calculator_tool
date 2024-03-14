@@ -1,5 +1,4 @@
 // icon:eye-invisible | Ant Design Icons https://ant.design/components/icon/ | Ant Design
-import * as React from "react";
 
 function IconEyeInvisible(props) {
     return (
