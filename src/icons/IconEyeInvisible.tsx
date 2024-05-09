@@ -1,6 +1,6 @@
 // icon:eye-invisible | Ant Design Icons https://ant.design/components/icon/ | Ant Design
 
-function IconEyeInvisible(props) {
+function IconEyeInvisible(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
             viewBox="0 0 1024 1024"

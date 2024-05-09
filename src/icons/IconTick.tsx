@@ -1,6 +1,6 @@
 // icon:tick | Typicons https://www.s-ings.com/typicons/ | Stephen Hutchings
 
-function IconTick(props) {
+function IconTick(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
             baseProfile="tiny"

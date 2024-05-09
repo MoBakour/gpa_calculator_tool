@@ -19,10 +19,18 @@ const Calculator = () => {
     } = useDataStore();
 
     // states
-    const [gpa, setGpa] = useState({ semesters: [], CGPA: 0 });
+    const [gpa, setGpa] = useState<{ semesters: number[]; CGPA: number }>({
+        semesters: [],
+        CGPA: 0,
+    });
 
     // onChange handlers
-    const handleChangeCourse = (e, semesterIndex, courseIndex, property) => {
+    const handleChangeCourse = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+        semesterIndex: number,
+        courseIndex: number,
+        property: string
+    ) => {
         const newContent = JSON.parse(JSON.stringify(content));
         newContent[semesterIndex].content[courseIndex][property] =
             e.target.value;
@@ -34,7 +42,10 @@ const Calculator = () => {
     };
 
     // onClick handlers
-    const addCourse = (e, semesterIndex) => {
+    const addCourse = (
+        _e: React.MouseEvent<HTMLButtonElement>,
+        semesterIndex: number
+    ) => {
         const newContent = JSON.parse(JSON.stringify(content));
         newContent[semesterIndex].content.push({
             name: "",
@@ -44,25 +55,35 @@ const Calculator = () => {
         setContent(newContent);
     };
 
-    const removeCourse = (e, semesterIndex, courseIndex) => {
+    const removeCourse = (
+        _e: React.MouseEvent<HTMLButtonElement>,
+        semesterIndex: number,
+        courseIndex: number
+    ) => {
         const newContent = JSON.parse(JSON.stringify(content));
         newContent[semesterIndex].content.splice(courseIndex, 1);
         setContent(newContent);
     };
 
-    const addSemester = (e) => {
+    const addSemester = (_e: React.MouseEvent<HTMLButtonElement>) => {
         const newContent = JSON.parse(JSON.stringify(content));
         newContent.push({ active: true, content: [] });
         setContent(newContent);
     };
 
-    const removeSemester = (e, semesterIndex) => {
+    const removeSemester = (
+        _e: React.MouseEvent<HTMLButtonElement>,
+        semesterIndex: number
+    ) => {
         const newContent = JSON.parse(JSON.stringify(content));
         newContent.splice(semesterIndex, 1);
         setContent(newContent);
     };
 
-    const toggleSemester = (e, semesterIndex) => {
+    const toggleSemester = (
+        _e: React.MouseEvent<HTMLButtonElement>,
+        semesterIndex: number
+    ) => {
         const newContent = JSON.parse(JSON.stringify(content));
         newContent[semesterIndex].active = !newContent[semesterIndex].active;
         setContent(newContent);

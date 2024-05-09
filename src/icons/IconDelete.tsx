@@ -1,6 +1,6 @@
 // icon:delete | Ant Design Icons https://ant.design/components/icon/ | Ant Design
 
-function IconDelete(props) {
+function IconDelete(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
             viewBox="0 0 1024 1024"

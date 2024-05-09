@@ -1,6 +1,6 @@
 // icon:x | Bootstrap https://icons.getbootstrap.com/ | Bootstrap
 
-function IconX(props) {
+function IconX(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
             fill="currentColor"

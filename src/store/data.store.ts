@@ -1,7 +1,8 @@
 import { create } from "zustand";
+import { Semester, GradingSystem, GradingSystems } from "../types";
 
 // default grading systems
-const defaultGradingSystems = {
+const defaultGradingSystems: GradingSystems = {
     myuni: [
         { letter: "AA", grade: 4 },
         { letter: "BA", grade: 3.5 },
@@ -36,7 +37,21 @@ export const CONTENT_KEY = "content_data";
 export const SYSTEM_KEY = "system_data";
 export const LETTER_GRADES_KEY = "letters_data";
 
-const useDataStore = create((set) => {
+interface IDataStore {
+    content: Semester[];
+    setContent: (newContent: Semester[]) => void;
+
+    system: string;
+    setSystem: (newSystem: string) => void;
+
+    letterGrades: GradingSystems;
+    setCustomGrades: (newCustomGrades: GradingSystem) => void;
+
+    settingsActive: boolean;
+    setSettingsActive: (newSettingsActive: boolean) => void;
+}
+
+const useDataStore = create<IDataStore>((set) => {
     /**
      * first attempt to get data from URL params
      * second attempt to get data from local storage
@@ -63,13 +78,13 @@ const useDataStore = create((set) => {
 
     return {
         content: storedGrades,
-        setContent: (newContent) => {
+        setContent: (newContent: Semester[]): void => {
             localStorage.setItem(CONTENT_KEY, JSON.stringify(newContent));
             set({ content: newContent });
         },
 
         system: storedSystem,
-        setSystem: (newSystem) => {
+        setSystem: (newSystem: string): void => {
             localStorage.setItem(SYSTEM_KEY, JSON.stringify(newSystem));
             set({ system: newSystem });
         },
@@ -78,7 +93,7 @@ const useDataStore = create((set) => {
             ...defaultGradingSystems,
             custom: storedCustomGrades,
         },
-        setCustomGrades: (newCustomGrades) => {
+        setCustomGrades: (newCustomGrades: GradingSystem): void => {
             localStorage.setItem(
                 LETTER_GRADES_KEY,
                 JSON.stringify(newCustomGrades)
@@ -97,7 +112,7 @@ const useDataStore = create((set) => {
         },
 
         settingsActive: false,
-        setSettingsActive: (newSettingsActive) => {
+        setSettingsActive: (newSettingsActive: boolean): void => {
             set({ settingsActive: newSettingsActive });
         },
     };

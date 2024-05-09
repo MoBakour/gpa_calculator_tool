@@ -1,4 +1,13 @@
-export const Blob = ({
+interface IBlobProps {
+    size: number;
+    color: string;
+    top?: string;
+    bottom?: string;
+    left?: string;
+    right?: string;
+}
+
+export const Blob: React.FC<IBlobProps> = ({
     size,
     color,
     top = "auto",

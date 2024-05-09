@@ -1,10 +1,9 @@
+import { GradingSystem, Semester } from "../types";
+
 /**
  * Calculates the GPA of each semester and the CGPA (cumulative)
- * @param {object} content - Content object contains all data of all semesters and all courses
- * @param {Array} sytsem - The grading system structure
- * @returns {object}
  */
-export const calculateGpa = (content, system) => {
+export const calculateGpa = (content: Semester[], system: GradingSystem) => {
     // will contain GPA values of each semester
     const semesters = [];
     let totalGrades = 0;
@@ -16,13 +15,14 @@ export const calculateGpa = (content, system) => {
 
         for (const course of semester.content) {
             // if no course credits, consider 0
-            course.credits = parseFloat(course.credits || "0");
+            let courseCredits = parseFloat(course.credits || "0");
 
             // to scale course grade, multiply by course credits
             grades +=
-                system.find((grade) => grade.letter === course.letter)?.grade *
-                    course.credits || 0;
-            credits += course.credits;
+                (system.find((grade) => grade.letter === course.letter)
+                    ?.grade ?? 0) * courseCredits;
+
+            credits += courseCredits;
         }
 
         // add to total
@@ -49,11 +49,8 @@ export const calculateGpa = (content, system) => {
 
 /**
  * Takes GPA and returns the appropriate gradient color range to visualize the GPA
- * @param {number} gpa - Numerical representation of GPA grade
- * @param {object} gradingSystem - Grading system object
- * @returns {string}
  */
-export const getColor = (gpa, gradingSystem) => {
+export const getColor = (gpa: number, gradingSystem: GradingSystem) => {
     if (isNaN(gpa)) return "";
 
     // calculate highest numerical grade

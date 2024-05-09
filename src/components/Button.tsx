@@ -1,4 +1,18 @@
-const Button = ({ className, size = "medium", onClick, children }) => {
+import { ReactNode } from "react";
+
+interface IButtonProps {
+    className?: string;
+    size?: string;
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    children: ReactNode;
+}
+
+const Button: React.FC<IButtonProps> = ({
+    className,
+    size = "medium",
+    onClick,
+    children,
+}) => {
     let sizeClasses = "";
 
     switch (size) {

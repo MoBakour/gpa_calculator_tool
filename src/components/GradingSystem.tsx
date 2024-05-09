@@ -20,13 +20,17 @@ const GradingSystem = () => {
         setCustomGrades(newSystem);
     };
 
-    const removeLetter = (index) => {
+    const removeLetter = (index: number) => {
         const newSystem = JSON.parse(JSON.stringify(letterGrades.custom));
         newSystem.splice(index, 1);
         setCustomGrades(newSystem);
     };
 
-    const handleChangeGrade = (e, index, property) => {
+    const handleChangeGrade = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        index: number,
+        property: string
+    ) => {
         const newSystem = JSON.parse(JSON.stringify(letterGrades.custom));
         newSystem[index][property] = e.target.value;
         setCustomGrades(newSystem);

@@ -1,6 +1,6 @@
 // icon:share | Entypo http://entypo.com/ | Daniel Bruce
 
-function IconShare(props) {
+function IconShare(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
             viewBox="0 0 800 1000"

@@ -1,6 +1,6 @@
 // icon:eye | Ant Design Icons https://ant.design/components/icon/ | Ant Design
 
-function IconEye(props) {
+function IconEye(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
             viewBox="0 0 1024 1024"
