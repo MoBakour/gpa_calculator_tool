@@ -7,12 +7,12 @@ interface IButtonProps {
     children: ReactNode;
 }
 
-const Button: React.FC<IButtonProps> = ({
+const Button = ({
     className,
     size = "medium",
     onClick,
     children,
-}) => {
+}: IButtonProps) => {
     let sizeClasses = "";
 
     switch (size) {

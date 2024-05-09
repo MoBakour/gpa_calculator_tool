@@ -7,14 +7,14 @@ interface IBlobProps {
     right?: string;
 }
 
-export const Blob: React.FC<IBlobProps> = ({
+export const Blob = ({
     size,
     color,
     top = "auto",
     bottom = "auto",
     left = "auto",
     right = "auto",
-}) => (
+}: IBlobProps) => (
     <div
         className="absolute blur-[75px] opacity-15 rounded-full pointer-events-none"
         style={{
