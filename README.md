@@ -10,4 +10,4 @@ A tool with clean and easy-to-use design that allows you to enter your grades an
 -   Grading system customization
 -   Sharing results via links
 
-By [Swordax](https://linktr.ee/swordax)
+By [MoBakour](https://linktr.ee/swordax)
