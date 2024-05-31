@@ -11,3 +11,18 @@ A tool with clean and easy-to-use design that allows you to enter your grades an
 -   Sharing results via links
 
 By [MoBakour](https://linktr.ee/swordax)
+
+## Run locally
+
+You will need Node.js installed on your system to install required packages using npm
+
+```bash
+# clone the repo then cd into it
+git clone https://github.com/MoBakour/gpa_calculator_tool
+
+# install required packages
+npm install
+
+# run code
+npm run dev
+```
