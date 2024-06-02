@@ -14,7 +14,7 @@ const AboutUs = () => {
 					<p className={pClasses}>
 						Hi! I am{" "}
 						<a
-							href="https://linktr.ee/swordax"
+							href="https://instagram.com/mo.bakour"
 							className="font-bold transition hover:underline"
 						>
 							Mohamed Bakour
