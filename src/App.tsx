@@ -5,17 +5,17 @@ import AboutGPA from "./pages/AboutGPA";
 import AboutUs from "./pages/AboutUs";
 
 function App() {
-    return (
-        <div className="bg-slate-800 text-white min-h-screen overflow-x-hidden">
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/about-gpa" element={<AboutGPA />} />
-                    <Route path="/about-us" element={<AboutUs />} />
-                </Routes>
-            </BrowserRouter>
-        </div>
-    );
+	return (
+		<div className="bg-slate-800 text-white min-h-screen overflow-x-hidden">
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/about-gpa" element={<AboutGPA />} />
+					<Route path="/about-us" element={<AboutUs />} />
+				</Routes>
+			</BrowserRouter>
+		</div>
+	);
 }
 
 export default App;
