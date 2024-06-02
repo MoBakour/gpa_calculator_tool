@@ -117,7 +117,7 @@ const Calculator = () => {
 					<button
 						className="transition hover:scale-90"
 						title={`${
-							courses.active ? "Disable" : "Activate"
+							courses.active ? "Exclude" : "Include"
 						} semester ${semesterIndex + 1}`}
 						onClick={(e) => toggleSemester(e, semesterIndex)}
 					>
