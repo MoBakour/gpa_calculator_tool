@@ -48,10 +48,10 @@ const ShareButton = () => {
 
 	return (
 		<button
-			className={`text-sm flex justify-center items-center gap-1 opacity-50 transition ${
-				!shareState
-					? "hover:opacity-70 cursor-pointer"
-					: "text-green-400 cursor-default"
+			className={`text-sm flex justify-center items-center gap-1 transition ${
+				shareState
+					? "text-green-400/100 cursor-default"
+					: "text-white/50 hover:text-white/70 cursor-pointer"
 			}`}
 			onClick={share}
 		>

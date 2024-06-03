@@ -272,7 +272,7 @@ const Calculator = () => {
 						</p>
 						<ShareButton />
 						<button
-							className="text-sm opacity-50 transition hover:opacity-70 flex justify-center items-center gap-1"
+							className="text-sm transition text-white/50 hover:text-white/70 flex justify-center items-center gap-1"
 							onClick={() => setSettingsActive(true)}
 						>
 							<span>Change grading system</span>
