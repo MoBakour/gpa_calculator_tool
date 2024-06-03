@@ -259,7 +259,7 @@ const Calculator = () => {
 			</div>
 
 			{!isNaN(gpa.CGPA) && (
-				<div className="mt-6 md:mt-0 md:w-[180px] relative text-center">
+				<div className="mt-6 md:mt-0 md:w-[180px] relative text-center flex justify-center items-center">
 					<div className="md:fixed md:top-1/2 md:-translate-y-1/2 flex flex-col justify-center items-center gap-2">
 						<p>Your cumulative GPA is</p>
 						<p

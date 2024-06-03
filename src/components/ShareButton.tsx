@@ -58,7 +58,7 @@ const ShareButton = () => {
 			{shareState ? (
 				<>
 					<span>Link copied to clipboard</span>
-					<IconTick />
+					<IconTick className="text-xl" />
 				</>
 			) : (
 				<>
