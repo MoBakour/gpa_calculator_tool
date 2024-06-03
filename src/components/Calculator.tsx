@@ -256,6 +256,14 @@ const Calculator = () => {
 				<Button className="bg-violet-700" onClick={addSemester}>
 					Add Semester
 				</Button>
+
+				<button
+					className="text-sm transition text-white/50 hover:text-white/70 flex justify-center items-center gap-1"
+					onClick={() => setSettingsActive(true)}
+				>
+					<span>Change grading system</span>
+					<IconBxsPencil className="text-lg" />
+				</button>
 			</div>
 
 			{!isNaN(gpa.CGPA) && (
@@ -271,13 +279,6 @@ const Calculator = () => {
 							{Number(gpa.CGPA).toFixed(2)}
 						</p>
 						<ShareButton />
-						<button
-							className="text-sm transition text-white/50 hover:text-white/70 flex justify-center items-center gap-1"
-							onClick={() => setSettingsActive(true)}
-						>
-							<span>Change grading system</span>
-							<IconBxsPencil className="text-lg" />
-						</button>
 					</div>
 				</div>
 			)}
