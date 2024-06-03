@@ -6,6 +6,7 @@ import useDataStore, {
 	SYSTEM_KEY,
 	LETTER_GRADES_KEY,
 } from "../store/data.store";
+import { Grade, Semester } from "../types";
 
 const ShareButton = () => {
 	const { content, system, letterGrades } = useDataStore();
@@ -13,9 +14,20 @@ const ShareButton = () => {
 
 	// share link constructor
 	const share = () => {
+		// select only name, credits, and letter fields to include in the share URL
+		let newContent = JSON.parse(JSON.stringify(content));
+		newContent = newContent.map((semester: Semester) => ({
+			...semester,
+			content: semester.content.map((course: Partial<Grade>) => ({
+				name: course.name,
+				credits: course.credits,
+				letter: course.letter,
+			})),
+		}));
+
 		// construct share URL
 		const shareLink = new URL(window.location.origin);
-		shareLink.searchParams.append(CONTENT_KEY, JSON.stringify(content));
+		shareLink.searchParams.append(CONTENT_KEY, JSON.stringify(newContent));
 		shareLink.searchParams.append(SYSTEM_KEY, JSON.stringify(system));
 
 		// if current system is custom, add custom grades to the URL params

@@ -7,6 +7,8 @@ import Button from "./Button";
 import { calculateGpa, getColor } from "../utils/calculate";
 import useDataStore from "../store/data.store";
 import IconBxsPencil from "../icons/IconBxsPencil";
+import { ReactSortable } from "react-sortablejs";
+import { Grade } from "../types";
 
 const Calculator = () => {
 	const {
@@ -20,7 +22,10 @@ const Calculator = () => {
 	} = useDataStore();
 
 	// states
-	const [gpa, setGpa] = useState<{ semesters: number[]; CGPA: number }>({
+	const [gpa, setGpa] = useState<{
+		semesters: (number | undefined)[];
+		CGPA: number;
+	}>({
 		semesters: [],
 		CGPA: 0,
 	});
@@ -29,12 +34,13 @@ const Calculator = () => {
 	const handleChangeCourse = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
 		semesterIndex: number,
-		courseIndex: number,
+		courseId: string,
 		property: string
 	) => {
 		const newContent = JSON.parse(JSON.stringify(content));
-		newContent[semesterIndex].content[courseIndex][property] =
-			e.target.value;
+		newContent[semesterIndex].content.find((i: Grade) => i.id === courseId)[
+			property
+		] = e.target.value;
 		setContent(newContent);
 
 		// make sure to override older values in localStorage if user comes from a share link
@@ -49,6 +55,8 @@ const Calculator = () => {
 	) => {
 		const newContent = JSON.parse(JSON.stringify(content));
 		newContent[semesterIndex].content.push({
+			// id: (Math.floor(Math.random() * 100) + 100).toString() + Date.now(),
+			id: crypto.randomUUID(),
 			name: "",
 			credits: "",
 			letter: "",
@@ -59,10 +67,12 @@ const Calculator = () => {
 	const removeCourse = (
 		_e: React.MouseEvent<HTMLButtonElement>,
 		semesterIndex: number,
-		courseIndex: number
+		courseId: string
 	) => {
 		const newContent = JSON.parse(JSON.stringify(content));
-		newContent[semesterIndex].content.splice(courseIndex, 1);
+		newContent[semesterIndex].content = newContent[
+			semesterIndex
+		].content.filter((i: Grade) => i.id !== courseId);
 		setContent(newContent);
 	};
 
@@ -87,6 +97,12 @@ const Calculator = () => {
 	) => {
 		const newContent = JSON.parse(JSON.stringify(content));
 		newContent[semesterIndex].active = !newContent[semesterIndex].active;
+		setContent(newContent);
+	};
+
+	const handleSort = (newOrder: Grade[], semesterIndex: number) => {
+		const newContent = JSON.parse(JSON.stringify(content));
+		newContent[semesterIndex].content = newOrder;
 		setContent(newContent);
 	};
 
@@ -133,11 +149,17 @@ const Calculator = () => {
 				</div>
 			</header>
 			<div className="content p-1 sm:p-3 flex flex-col items-center relative">
-				<div className="courses flex flex-col gap-2 sm:gap-3">
-					{courses.content.map((course, courseIndex) => (
+				<ReactSortable
+					className="courses flex flex-col gap-2 sm:gap-3"
+					list={courses.content}
+					setList={(newOrder: Grade[]) =>
+						handleSort(newOrder, semesterIndex)
+					}
+				>
+					{courses.content.map((course) => (
 						<div
 							className="course flex gap-3 sm:gap-4"
-							key={courseIndex}
+							key={course.id}
 						>
 							<input
 								type="text"
@@ -149,7 +171,7 @@ const Calculator = () => {
 									handleChangeCourse(
 										e,
 										semesterIndex,
-										courseIndex,
+										course.id,
 										"name"
 									)
 								}
@@ -163,7 +185,7 @@ const Calculator = () => {
 									handleChangeCourse(
 										e,
 										semesterIndex,
-										courseIndex,
+										course.id,
 										"credits"
 									)
 								}
@@ -177,7 +199,7 @@ const Calculator = () => {
 									handleChangeCourse(
 										e,
 										semesterIndex,
-										courseIndex,
+										course.id,
 										"letter"
 									)
 								}
@@ -193,14 +215,15 @@ const Calculator = () => {
 								className="transition hover:scale-90"
 								title="Delete course"
 								onClick={(e) =>
-									removeCourse(e, semesterIndex, courseIndex)
+									removeCourse(e, semesterIndex, course.id)
 								}
 							>
 								<IconDelete />
 							</button>
 						</div>
 					))}
-				</div>
+				</ReactSortable>
+
 				<Button
 					size="small"
 					className="bg-sky-500 mt-3"
@@ -208,6 +231,7 @@ const Calculator = () => {
 				>
 					Add Course
 				</Button>
+
 				<div
 					className={`absolute bottom-4 left-0 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${getColor(
 						Number(gpa.semesters[semesterIndex]),
