@@ -30,8 +30,8 @@ export const Blob = ({
 );
 
 export const Blobs = () => (
-	<div className="fixed w-screen h-screen overflow-hidden pointer-events-none">
+	<div className="fixed w-screen h-screen overflow-hidden -z-1 pointer-events-none">
 		<Blob size={500} color="purple" right="-200px"></Blob>
-		<Blob size={500} color="cyan" top="100px" left="-300px" />
+		<Blob size={500} color="cyan" top="200px" left="-300px" />
 	</div>
 );
