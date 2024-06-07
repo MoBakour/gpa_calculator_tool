@@ -1,13 +1,8 @@
-import Header from "../components/Header";
-import { Blobs } from "../components/Blobs";
-
 const AboutUs = () => {
 	const pClasses = "px-4 py-5";
 
 	return (
 		<div>
-			<Header />
-			<Blobs />
 			<article className="m-auto my-20 flex flex-col gap-5 w-5/6 md:w-2/3 lg:w-1/2">
 				<section>
 					<h1 className="font-bold text-3xl">Who created this?</h1>
