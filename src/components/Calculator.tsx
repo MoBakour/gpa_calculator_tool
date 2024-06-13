@@ -160,7 +160,7 @@ const Calculator = () => {
                 >
                     {courses.content.map((course) => (
                         <div
-                            className="course flex justify-center items-center gap-3 sm:gap-4"
+                            className="course flex justify-center items-center gap-2 sm:gap-4"
                             key={course.id}
                         >
                             <div
@@ -188,7 +188,7 @@ const Calculator = () => {
                                 type="number"
                                 placeholder="Credits"
                                 value={course.credits}
-                                className="bg-transparent w-8"
+                                className="bg-transparent w-14"
                                 onChange={(e) =>
                                     handleChangeCourse(
                                         e,
