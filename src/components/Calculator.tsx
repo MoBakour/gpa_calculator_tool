@@ -9,6 +9,7 @@ import useDataStore from "../store/data.store";
 import IconBxsPencil from "../icons/IconBxsPencil";
 import { ReactSortable } from "react-sortablejs";
 import { Grade } from "../types";
+import IconMenu from "../icons/IconMenu";
 
 const Calculator = () => {
     const {
@@ -126,7 +127,7 @@ const Calculator = () => {
             key={semesterIndex}
         >
             <header className="flex justify-between">
-                <h2 className="text-lg sm:text-xl font-bold">
+                <h2 className="text-lg sm:text-xl font-bold pb-2">
                     Semester {semesterIndex + 1}
                 </h2>
                 <div className="flex justify-center items-center gap-2">
@@ -148,19 +149,26 @@ const Calculator = () => {
                     </button>
                 </div>
             </header>
-            <div className="content p-1 sm:p-3 flex flex-col items-center relative">
+            <div className="content sm:p-3 flex flex-col items-center relative">
                 <ReactSortable
                     className="courses flex flex-col gap-2 sm:gap-3"
                     list={courses.content}
+                    handle=".sort-handle"
                     setList={(newOrder: Grade[]) =>
                         handleSort(newOrder, semesterIndex)
                     }
                 >
                     {courses.content.map((course) => (
                         <div
-                            className="course flex gap-3 sm:gap-4"
+                            className="course flex justify-center items-center gap-3 sm:gap-4"
                             key={course.id}
                         >
+                            <div
+                                className="sort-handle cursor-pointer"
+                                title="Drag to reorder"
+                            >
+                                <IconMenu />
+                            </div>
                             <input
                                 type="text"
                                 placeholder="Course name"
@@ -180,7 +188,7 @@ const Calculator = () => {
                                 type="number"
                                 placeholder="Credits"
                                 value={course.credits}
-                                className="bg-transparent w-16"
+                                className="bg-transparent w-8"
                                 onChange={(e) =>
                                     handleChangeCourse(
                                         e,
@@ -233,7 +241,7 @@ const Calculator = () => {
                 </Button>
 
                 <div
-                    className={`absolute bottom-4 left-0 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${getColor(
+                    className={`absolute bottom-2 md:bottom-4 left-0 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${getColor(
                         Number(gpa.semesters[semesterIndex]),
                         letterGrades[system]
                     )}`}
