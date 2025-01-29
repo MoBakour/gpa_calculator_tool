@@ -56,7 +56,6 @@ const Calculator = () => {
     ) => {
         const newContent = JSON.parse(JSON.stringify(content));
         newContent[semesterIndex].content.push({
-            // id: (Math.floor(Math.random() * 100) + 100).toString() + Date.now(),
             id: crypto.randomUUID(),
             name: "",
             credits: "",
