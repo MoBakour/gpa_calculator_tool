@@ -38,11 +38,13 @@ const Calculator = () => {
         courseId: string,
         property: string
     ) => {
-        const newContent = JSON.parse(JSON.stringify(content));
-        newContent[semesterIndex].content.find((i: Grade) => i.id === courseId)[
-            property
-        ] = e.target.value;
-        setContent(newContent);
+        const course = content[semesterIndex].content.find(
+            (i: Grade) => i.id === courseId
+        );
+        if (course && property in course) {
+            (course as any)[property] = e.target.value;
+        }
+        setContent([...content]);
 
         // make sure to override older values in localStorage if user comes from a share link
         setSystem(system);
@@ -54,14 +56,13 @@ const Calculator = () => {
         _e: React.MouseEvent<HTMLButtonElement>,
         semesterIndex: number
     ) => {
-        const newContent = JSON.parse(JSON.stringify(content));
-        newContent[semesterIndex].content.push({
+        content[semesterIndex].content.push({
             id: crypto.randomUUID(),
             name: "",
             credits: "",
             letter: "",
         });
-        setContent(newContent);
+        setContent([...content]);
     };
 
     const removeCourse = (
@@ -69,41 +70,36 @@ const Calculator = () => {
         semesterIndex: number,
         courseId: string
     ) => {
-        const newContent = JSON.parse(JSON.stringify(content));
-        newContent[semesterIndex].content = newContent[
-            semesterIndex
-        ].content.filter((i: Grade) => i.id !== courseId);
-        setContent(newContent);
+        content[semesterIndex].content = content[semesterIndex].content.filter(
+            (i: Grade) => i.id !== courseId
+        );
+        setContent([...content]);
     };
 
     const addSemester = (_e: React.MouseEvent<HTMLButtonElement>) => {
-        const newContent = JSON.parse(JSON.stringify(content));
-        newContent.push({ active: true, content: [] });
-        setContent(newContent);
+        content.push({ active: true, content: [] });
+        setContent([...content]);
     };
 
     const removeSemester = (
         _e: React.MouseEvent<HTMLButtonElement>,
         semesterIndex: number
     ) => {
-        const newContent = JSON.parse(JSON.stringify(content));
-        newContent.splice(semesterIndex, 1);
-        setContent(newContent);
+        content.splice(semesterIndex, 1);
+        setContent([...content]);
     };
 
     const toggleSemester = (
         _e: React.MouseEvent<HTMLButtonElement>,
         semesterIndex: number
     ) => {
-        const newContent = JSON.parse(JSON.stringify(content));
-        newContent[semesterIndex].active = !newContent[semesterIndex].active;
-        setContent(newContent);
+        content[semesterIndex].active = !content[semesterIndex].active;
+        setContent([...content]);
     };
 
     const handleSort = (newOrder: Grade[], semesterIndex: number) => {
-        const newContent = JSON.parse(JSON.stringify(content));
-        newContent[semesterIndex].content = newOrder;
-        setContent(newContent);
+        content[semesterIndex].content = newOrder;
+        setContent([...content]);
     };
 
     /**
@@ -111,10 +107,7 @@ const Calculator = () => {
      * - calculate new content data GPA and reset gpa state.
      */
     useEffect(() => {
-        const result = calculateGpa(
-            JSON.parse(JSON.stringify(content)),
-            letterGrades[system]
-        );
+        const result = calculateGpa(content, letterGrades[system]);
         setGpa(result);
     }, [content]);
 
@@ -148,11 +141,12 @@ const Calculator = () => {
                     </button>
                 </div>
             </header>
-            <div className="content sm:p-3 flex flex-col items-center relative">
+            <div className="content sm:px-3 flex flex-col items-center relative">
                 <ReactSortable
-                    className="courses flex flex-col gap-2 sm:gap-3"
+                    className="courses flex flex-col gap-2 sm:gap-3 w-full py-3"
                     list={courses.content}
                     handle=".sort-handle"
+                    group="shared"
                     setList={(newOrder: Grade[]) =>
                         handleSort(newOrder, semesterIndex)
                     }
@@ -233,7 +227,7 @@ const Calculator = () => {
 
                 <Button
                     size="small"
-                    className="bg-sky-500 mt-3"
+                    className="bg-sky-500"
                     onClick={(e) => addCourse(e, semesterIndex)}
                 >
                     Add Course
