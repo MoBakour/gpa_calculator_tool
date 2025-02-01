@@ -249,10 +249,12 @@ const Calculator = () => {
     ));
 
     return (
-        <div className="calculator p-6 flex flex-col gap-3 md:flex-row justify-evenly items-center mb-20">
+        <div className="calculator mt-6 flex flex-col gap-3 md:flex-row justify-evenly items-center mb-20">
             {/* grading system */}
-            <div className="flex flex-col items-center gap-3">
-                <div className="semesters w-[500px]">{elements}</div>
+            <div className="flex flex-col w-full sm:w-fit items-center gap-3">
+                <div className="semesters w-full sm:w-[500px] text-[90%] sm:text-base">
+                    {elements}
+                </div>
 
                 <Button className="bg-violet-700" onClick={addSemester}>
                     Add Semester

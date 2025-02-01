@@ -56,13 +56,6 @@
     }
 }
 
-@media (max-width: 540px) {
-    .semesters {
-        width: 300px;
-        font-size: 80%;
-    }
-}
-
 /* media queries */
 @media (max-width: 450px) {
     .header h1 {
