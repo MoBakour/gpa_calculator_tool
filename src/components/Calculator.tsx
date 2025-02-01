@@ -141,7 +141,7 @@ const Calculator = () => {
                     </button>
                 </div>
             </header>
-            <div className="content sm:px-3 flex flex-col items-center relative">
+            <div className="content flex flex-col items-center relative">
                 <ReactSortable
                     className="courses flex flex-col gap-2 sm:gap-3 w-full py-3"
                     list={courses.content}
@@ -167,7 +167,7 @@ const Calculator = () => {
                                 placeholder="Course name"
                                 value={course.name}
                                 title={course.name}
-                                className="bg-transparent"
+                                className="bg-transparent w-full"
                                 onChange={(e) =>
                                     handleChangeCourse(
                                         e,
@@ -252,7 +252,7 @@ const Calculator = () => {
         <div className="calculator p-6 flex flex-col gap-3 md:flex-row justify-evenly items-center mb-20">
             {/* grading system */}
             <div className="flex flex-col items-center gap-3">
-                <div className="semesters w-[400px]">{elements}</div>
+                <div className="semesters w-[500px]">{elements}</div>
 
                 <Button className="bg-violet-700" onClick={addSemester}>
                     Add Semester

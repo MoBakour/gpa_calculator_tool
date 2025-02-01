@@ -56,6 +56,13 @@
     }
 }
 
+@media (max-width: 540px) {
+    .semesters {
+        width: 300px;
+        font-size: 80%;
+    }
+}
+
 /* media queries */
 @media (max-width: 450px) {
     .header h1 {
@@ -64,12 +71,5 @@
 
     .header nav {
         @apply text-sm;
-    }
-}
-
-@media (max-width: 420px) {
-    .semesters {
-        width: 320px;
-        font-size: 80%;
     }
 }
