@@ -124,20 +124,24 @@ const Calculator = () => {
                 </h2>
                 <div className="flex justify-center items-center gap-2">
                     <button
-                        className="transition hover:scale-90"
+                        className="group"
                         title={`${
                             courses.active ? "Exclude" : "Include"
                         } semester ${semesterIndex + 1}`}
                         onClick={(e) => toggleSemester(e, semesterIndex)}
                     >
-                        {courses.active ? <IconEye /> : <IconEyeInvisible />}
+                        {courses.active ? (
+                            <IconEye className="group-hover:scale-90 transition" />
+                        ) : (
+                            <IconEyeInvisible className="group-hover:scale-90 transition" />
+                        )}
                     </button>
                     <button
-                        className="transition hover:scale-90"
+                        className="group"
                         title={`Delete semester ${semesterIndex + 1}`}
                         onClick={(e) => removeSemester(e, semesterIndex)}
                     >
-                        <IconDelete />
+                        <IconDelete className="group-hover:scale-90 transition" />
                     </button>
                 </div>
             </header>
@@ -213,13 +217,13 @@ const Calculator = () => {
                                 ))}
                             </select>
                             <button
-                                className="transition hover:scale-90"
+                                className="group"
                                 title="Delete course"
                                 onClick={(e) =>
                                     removeCourse(e, semesterIndex, course.id)
                                 }
                             >
-                                <IconDelete />
+                                <IconDelete className="group-hover:scale-90 transition" />
                             </button>
                         </div>
                     ))}
